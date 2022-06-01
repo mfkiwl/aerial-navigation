@@ -1,4 +1,5 @@
-function dx = quadrotor_dynamics(t, state, params)
+function dx = linear_quadrotor_dynamics(~, state, params, controller)
+% equilibrium about 0,0,0,0,0,0,0,....
 
 % Grab the quadrotor parameters
 m = params.m;
@@ -27,22 +28,17 @@ u4 = state(16); % angular velocity of the fourth bldc motor
 
 % equilibrium angular velocity for stationary flight of quadrotor
 u0 = sqrt(1/4 * (M + 4 * m) * g);
-u1 = u0;
-u2 = -u0;
-u3 = u0;
-u4 = -u0;
 
-% forward acceleration of the quadrotor (forward meaning upwards if level)
-a = 1 / (M + 4 * m) * (u1^2 + u2^2 + u3^2 + u4^2);
+[u1, u2, u3, u4] = controller(state, params);
 
 % quadrotor dynamics
-xddot = a * (cos(alpha) * sin(beta) * cos(gamma) - sin(alpha) * sin(gamma));
-yddot = a * (sin(alpha) * sin(beta) * cos(gamma) - sin(alpha) * sin(gamma));
-zddot = a * (cos(beta) * cos(gamma)) - g;
+xddot = 1 / (M + 4 * m) * (4 * u0^2 * beta);
+yddot = 1 / (M + 4 * m) * (4 * u0^2 * gamma);
+zddot = 1 / (M + 4 * m) * (2 * u0 * u1 - 2 * u0 * u2 + 2 * u0 * u3 - 2 * u0 * u4 - 8 * u0^2); % the 8 u0^2 term is weird...
 
 alphaddot = m * l / ((M + 4 * m) * L) * (u1 + u2 + u3 + u4);
-betaddot = 1 / m * (u1^2 - u3^2);
-gammaddot = 1 / m * (u2^2 - u4^2);
+betaddot = 1 / m * (2 * u0 * u1 - 2 * u0 * u3);
+gammaddot = 1 / m * (2 * u0 * u2 - 2 * u0 * u4);
 
 % apply to differential to solve
 dx = [
