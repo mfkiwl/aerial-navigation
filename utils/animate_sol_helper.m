@@ -33,7 +33,7 @@ hg   = gca;
 view(50,35);
 grid on;
 axis equal;
-xlim([-3.0 3.0]); ylim([-3.0 3.0]); zlim([0 10]);
+xlim([-3.0 3.0]); ylim([-3.0 3.0]); zlim([-3 3]);
 xlabel('x [m]');
 ylabel('y [m]');
 zlabel('z [m]');

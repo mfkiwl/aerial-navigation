@@ -45,8 +45,8 @@ B = [
     ];
 
 
-controllability_ = simplify([B A*B A*A*B A*A*A*B A*A*A*A*B A*A*A*A*A*B A*A*A*A*A*A*B A*A*A*A*A*A*A*B A*A*A*A*A*A*A*A*B A*A*A*A*A*A*A*A*A*B A*A*A*A*A*A*A*A*A*A*B A*A*A*A*A*A*A*A*A*A*A*B A*A*A*A*A*A*A*A*A*A*A*A*B]);
-k = double(simplify(subs(controllability_, [M m L l g], [1 1 0.2 0.15 9.81])));
+Mc = simplify([B A*B A*A*B A*A*A*B A*A*A*A*B A*A*A*A*A*B A*A*A*A*A*A*B A*A*A*A*A*A*A*B A*A*A*A*A*A*A*A*B A*A*A*A*A*A*A*A*A*B A*A*A*A*A*A*A*A*A*A*B A*A*A*A*A*A*A*A*A*A*A*B A*A*A*A*A*A*A*A*A*A*A*A*B]);
+rank(double(simplify(subs(Mc, [M m L l g], [1 1 0.2 0.15 9.81]))))
 % rank is 12 -> therefore fully contrallabile!!!!!!!!!!!!!!!!!! :)
 
 syms K K11 K12 K13 K14 K15 K16 K17 K18 K19 K110 K111 K112 real
@@ -60,4 +60,8 @@ K = [
     K41 K42 K43 K44 K45 K46 K47 K48 K49 K410 K411 K412
     ];
 
+A = double(subs(A, [M m L l g], [1 1 0.2 0.15 9.81]));
+B = double(subs(B, [M m L l g], [1 1 0.2 0.15 9.81]));
+
 K = place(A,B,[-1 -1.1 -1.2 -1.3 -1.4 -1.5 -1.6 -1.7 -1.8 -1.9 -1.91 -1.92]);
+K = lqr(A, B, eye(12,12), eye(4,4));

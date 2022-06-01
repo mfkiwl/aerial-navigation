@@ -1,12 +1,12 @@
 %% Initialize ODE-IC Problem
 addpath("utils");
 quadrotor_params = struct('M', 1, 'm', 1, 'L', 0.2, 'l', 0.15, 'g', 9.81);
-tspan = [0, 100];
-init_conds = zeros(16, 1); init_conds(3) = 9.5;
+tspan = [0, 10];
+init_conds = zeros(16, 1); init_conds(3) = 2.95; init_conds(5) = 0.5;
 control = @(state, params)controller(state, params);
 
 %% Solve the ODE-IC Problem
-[t, sol] = ode45(@(t,y) linear_quadrotor_dynamics(t, y, quadrotor_params, control), tspan, init_conds);
+[t, sol] = ode45(@(t,y) quadrotor_dynamics(t, y, quadrotor_params, control), tspan, init_conds);
 
 %% Visualize the solution
 animate_sol(t, sol, quadrotor_params);
@@ -47,7 +47,7 @@ plot(t, sol(:,11)); ylabel('pitch rate (rad/s)'); grid on;
 subplot(3,1,3);
 plot(t, sol(:,12)); ylabel('roll rate (rad/s)'); xlabel('time (s)'); grid on;
 
-% plot control effort
-f6 = figure(6);
-plot(t, sol(:,13:16)); ylabel('BLDC Angular Velocity [rad/s]'); xlabel('time (s)');
-legend('u1', 'u2', 'u3', 'u4'); grid on;
+% % plot control effort
+% f6 = figure(6);
+% plot(t, sol(:,13:16)); ylabel('BLDC Angular Velocity [rad/s]'); xlabel('time (s)');
+% legend('u1', 'u2', 'u3', 'u4'); grid on;
