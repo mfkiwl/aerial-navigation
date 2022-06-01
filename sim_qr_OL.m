@@ -1,4 +1,5 @@
 %% Initialize ODE-IC Problem
+addpath("utils");
 quadrotor_params = struct('M', 1, 'm', 1, 'L', 0.2, 'l', 0.15, 'g', 9.81);
 tspan = [0, 100];
 init_conds = zeros(16, 1); init_conds(3) = 9.5;

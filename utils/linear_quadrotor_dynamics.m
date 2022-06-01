@@ -12,12 +12,12 @@ g = params.g;
 x = state(1); % x-position w.r.t. some fixed point
 y = state(2); % y-position w.r.t. some fixed point
 z = state(3); % z-position w.r.t. some fixed point
-xdot = state(4); % vel. along x-axis w.r.t. some fixed ref frame
-ydot = state(5); % vel. along y-axis w.r.t. some fixed ref frame
-zdot = state(6); % vel. along z-axis w.r.t. some fixed ref frame
-alpha = state(7); % yaw of the quadrotor
-beta = state(8); % pitch of the quadrotor
-gamma = state(9); % roll of the quadrotor
+alpha = state(4); % yaw of the quadrotor
+beta = state(5); % pitch of the quadrotor
+gamma = state(6); % roll of the quadrotor
+xdot = state(7); % vel. along x-axis w.r.t. some fixed ref frame
+ydot = state(8); % vel. along y-axis w.r.t. some fixed ref frame
+zdot = state(9); % vel. along z-axis w.r.t. some fixed ref frame
 alphadot = state(10); % yawspeed of the quadrotor
 betadot = state(11); % pitchspeed of the quadrotor
 gammadot = state(12); % rollspeed of the quadrotor
@@ -42,8 +42,8 @@ gammaddot = 1 / m * (2 * u0 * u2 - 2 * u0 * u4);
 
 % apply to differential to solve
 dx = [
-    xdot; ydot; zdot; xddot; yddot; zddot;
-    alphadot; betadot; gammadot; alphaddot; betaddot; gammaddot;
+    xdot; ydot; zdot; alphadot; betadot; gammadot;
+    xddot; yddot; zddot; alphaddot; betaddot; gammaddot;
     0; 0; 0; 0 % no change in 'u's
 ];
 

@@ -46,7 +46,7 @@ B = [
 
 
 controllability_ = simplify([B A*B A*A*B A*A*A*B A*A*A*A*B A*A*A*A*A*B A*A*A*A*A*A*B A*A*A*A*A*A*A*B A*A*A*A*A*A*A*A*B A*A*A*A*A*A*A*A*A*B A*A*A*A*A*A*A*A*A*A*B A*A*A*A*A*A*A*A*A*A*A*B A*A*A*A*A*A*A*A*A*A*A*A*B]);
-k = double(simplify(subs(controllability_, [M m L l g], [1 1 0.2 0.15 9.81])))
+k = double(simplify(subs(controllability_, [M m L l g], [1 1 0.2 0.15 9.81])));
 % rank is 12 -> therefore fully contrallabile!!!!!!!!!!!!!!!!!! :)
 
 syms K K11 K12 K13 K14 K15 K16 K17 K18 K19 K110 K111 K112 real
@@ -59,3 +59,5 @@ K = [
     K31 K32 K33 K34 K35 K36 K37 K38 K39 K310 K311 K312;
     K41 K42 K43 K44 K45 K46 K47 K48 K49 K410 K411 K412
     ];
+
+K = place(A,B,[-1 -1.1 -1.2 -1.3 -1.4 -1.5 -1.6 -1.7 -1.8 -1.9 -1.91 -1.92]);
